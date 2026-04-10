@@ -2,7 +2,8 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: 'WeeklyZen | 周周冥想',
-  description: 'WeeklyZen 是一个小而安静的冥想网站，提供简单、纯粹、可持续的呼吸与正念练习体验。',
+  description:
+    '周周冥想希望你每周留出一两次安静练习，让注意力回到呼吸、身体与当下。',
   mainNav: [
     {
       title: '首页',
@@ -27,6 +28,6 @@ export const siteConfig = {
   ],
   links: {
     github: 'https://github.com/makerjackie/WeeklyZen',
-    docs: 'https://weeklyzen.01mvp.com',
+    docs: 'https://zen.01mvp.com',
   },
 }
