@@ -56,27 +56,14 @@ export const useMeditationDialogs = () => {
     const [showGuidanceTextDialog, setShowGuidanceTextDialog] = useState(false);
     const [showCourseDialog, setShowCourseDialog] = useState(false);
 
-    // 处理对话框显示逻辑，确保在播放状态下无法打开
-    const handleShowGuidanceDialog = useCallback((isPlaying: boolean) => {
-        if (!isPlaying) {
-            setShowGuidanceDialog(true);
-        } else {
-            // 可选：添加提示，告知用户需要先暂停
-            toast.info("请先暂停冥想后再更换引导语", {
-                description: "冥想进行中无法切换引导语"
-            });
-        }
+    // 处理对话框显示逻辑
+    const handleShowGuidanceDialog = useCallback((_isPlaying: boolean) => {
+        setShowGuidanceDialog(true);
     }, []);
 
     // 处理显示音效选择对话框
-    const handleShowSoundDialog = useCallback((isPlaying: boolean) => {
-        if (!isPlaying) {
-            setShowSoundDialog(true);
-        } else {
-            toast.info("请先暂停冥想后再更换音效", {
-                description: "冥想进行中无法切换音效"
-            });
-        }
+    const handleShowSoundDialog = useCallback((_isPlaying: boolean) => {
+        setShowSoundDialog(true);
     }, []);
 
     // 处理显示引导语全文对话框
@@ -194,7 +181,7 @@ const MeditationDialogController: React.FC<MeditationDialogControllerProps> = ({
 
             {/* 引导语选择对话框 */}
             <Dialog
-                open={showGuidanceDialog && !isPlaying}
+                open={showGuidanceDialog}
                 onOpenChange={handleGuidanceDialogChange}
             >
                 <DialogContent className={`${isDarkTheme ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'} w-[90vw] max-w-md mx-auto`}>

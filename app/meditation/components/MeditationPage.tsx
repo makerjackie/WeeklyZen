@@ -617,75 +617,91 @@ export default function MeditationPage() {
   const handleGuidanceSelect = (guidance: GuidanceType) => {
     // 设置选中的引导语
     console.log('[调试] 选中引导语:', guidance.id, guidance.title)
+    hasPlayedCustomAudioRef.current = false
     setSelectedGuidance(guidance)
     setShowGuidanceDialog(false)
 
-    // 重置冥想（包括时间计时器和音频状态）
-    console.log('[调试] 重置冥想计时和音频')
-    resetMeditation()
+    if (guidanceAudio) {
+      guidanceAudio.pause()
+      guidanceAudio.onended = null
+      guidanceAudio.src = ''
+    }
 
     // 根据引导语类型选择正确的音频URL
     let audioUrl = guidance.audioUrl
 
-    // 如果引导语有音频URL，创建新的音频元素
-    if (audioUrl) {
-      console.log('[调试] 引导语有音频URL，创建音频元素:', audioUrl)
-      const audio = new Audio(audioUrl)
-      audio.volume = isMuted ? 0 : volume / 100
-      console.log('[调试] 设置引导语音频音量:', isMuted ? 0 : volume / 100)
+    if (!audioUrl) {
+      console.log('[调试] 引导语没有音频URL')
+      setGuidanceAudio(null)
 
-      // 如果是自定义引导语且有自定义音频URL，设置播放结束后继续播放自定义音频
-      if (
-        (guidance.id === 'custom-guidance' || audioUrl.includes('start.mp3')) &&
-        customAudioUrl
-      ) {
-        console.log(
-          '[调试] 设置自定义引导语音频播放结束事件，将播放:',
-          customAudioUrl
-        )
-
-        audio.onended = () => {
-          console.log('[调试] 引导语音频播放结束，开始播放自定义音频')
-
-          // 创建新的音频元素播放自定义音频
-          const customAudio = new Audio(customAudioUrl)
-          customAudio.volume = isMuted ? 0 : volume / 100
-
-          // 播放自定义音频
-          customAudio
-            .play()
-            .then(() => {
-              console.log('[调试] 自定义音频开始播放成功')
-              // 保存引用以便于后续控制
-              setGuidanceAudio(customAudio)
-            })
-            .catch((error) => {
-              console.error('[调试] 播放自定义音频失败:', error)
-              toast.error('播放自定义音频失败，请重试')
-            })
-        }
+      if (!isPlaying) {
+        console.log('[调试] 非播放状态下切换到无引导语，重置冥想计时')
+        resetMeditation()
       }
 
-      audio.onloadeddata = () => console.log('[调试] 引导语音频加载完成')
-      audio.onerror = (e) => console.error('[调试] 引导语音频加载出错:', e)
+      return
+    }
 
-      setGuidanceAudio(audio)
+    // 如果引导语有音频URL，创建新的音频元素
+    console.log('[调试] 引导语有音频URL，创建音频元素:', audioUrl)
+    const audio = new Audio(audioUrl)
+    audio.volume = isMuted ? 0 : volume / 100
+    console.log('[调试] 设置引导语音频音量:', isMuted ? 0 : volume / 100)
 
-      // 如果当前正在播放冥想，自动播放引导语
-      if (isPlaying) {
+    // 如果是自定义引导语且有自定义音频URL，设置播放结束后继续播放自定义音频
+    if (
+      (guidance.id === 'custom-guidance' || audioUrl.includes('start.mp3')) &&
+      customAudioUrl
+    ) {
+      console.log(
+        '[调试] 设置自定义引导语音频播放结束事件，将播放:',
+        customAudioUrl
+      )
+
+      audio.onended = () => {
+        console.log('[调试] 引导语音频播放结束，开始播放自定义音频')
+
+        if (hasPlayedCustomAudioRef.current) {
+          console.log('[调试] 自定义音频已经播放过，不再重复播放')
+          return
+        }
+
+        audio.src = customAudioUrl
+        audio.volume = isMuted ? 0 : volume / 100
+
         audio
           .play()
           .then(() => {
-            console.log('[调试] 引导语音频开始播放成功')
+            console.log('[调试] 自定义音频开始播放成功')
+            hasPlayedCustomAudioRef.current = true
           })
           .catch((error) => {
-            console.error('[调试] 播放引导语音频失败:', error)
-            toast.error('播放引导语音频失败，请重试')
+            console.error('[调试] 播放自定义音频失败:', error)
+            toast.error('播放自定义音频失败，请重试')
           })
       }
-    } else {
-      console.log('[调试] 引导语没有音频URL')
     }
+
+    audio.onloadeddata = () => console.log('[调试] 引导语音频加载完成')
+    audio.onerror = (e) => console.error('[调试] 引导语音频加载出错:', e)
+
+    setGuidanceAudio(audio)
+
+    if (!isPlaying) {
+      console.log('[调试] 非播放状态下切换引导语，重置冥想计时和音频')
+      resetMeditation()
+      return
+    }
+
+    audio
+      .play()
+      .then(() => {
+        console.log('[调试] 引导语音频开始播放成功')
+      })
+      .catch((error) => {
+        console.error('[调试] 播放引导语音频失败:', error)
+        toast.error('播放引导语音频失败，请重试')
+      })
   }
 
   // 显示鼓励对话框
@@ -1072,19 +1088,8 @@ export default function MeditationPage() {
     })
   }, [])
 
-  // 更新showGuidanceDialog的设置逻辑，确保在播放状态下无法打开
   const handleShowGuidanceDialog = () => {
-    if (!isPlaying) {
-      setShowGuidanceDialog(true)
-    } else {
-      // 可选：添加提示，告知用户需要先暂停
-      toast.info(
-        t(
-          '请先暂停冥想后再更换引导语',
-          'Please pause meditation before changing guidance'
-        )
-      )
-    }
+    setShowGuidanceDialog(true)
   }
 
   // 更新showDurationMenu的设置逻辑
@@ -1326,12 +1331,8 @@ export default function MeditationPage() {
 
       {/* 引导语选择对话框 - 优化移动端显示 */}
       <Dialog
-        open={showGuidanceDialog && !isPlaying}
-        onOpenChange={(open) => {
-          if (!isPlaying || !open) {
-            setShowGuidanceDialog(open)
-          }
-        }}
+        open={showGuidanceDialog}
+        onOpenChange={setShowGuidanceDialog}
       >
         <DialogContent
           className={`${isDarkTheme ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'} mx-auto w-[90vw] max-w-md`}

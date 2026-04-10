@@ -86,7 +86,6 @@ export function MeditationHeader({
                     size="sm"
                     onClick={onSoundClick}
                     className={`rounded-full ${buttonStyle}`}
-                    disabled={isPlaying}
                 >
                     <Music size={16} className="md:mr-1" />
                     <span className="hidden md:inline">{t("背景音效", "Sound")}</span>
@@ -96,8 +95,7 @@ export function MeditationHeader({
                     variant="outline"
                     size="sm"
                     onClick={onGuidanceClick}
-                    className={`rounded-full ${buttonStyle} ${isPlaying ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    disabled={isPlaying}
+                    className={`rounded-full ${buttonStyle}`}
                 >
                     <BookOpen size={16} className="md:mr-1" />
                     <span className="hidden md:inline">{t("引导语", "Guidance")}</span>
@@ -154,8 +152,7 @@ export function MeditationHeader({
                     <Button
                         variant="ghost"
                         size="icon"
-                        className={`rounded-full ${isPlaying ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        disabled={isPlaying}
+                        className="rounded-full"
                     >
                         <Menu size={20} />
                     </Button>
@@ -167,7 +164,6 @@ export function MeditationHeader({
                             size="sm"
                             onClick={onSoundClick}
                             className={`w-full justify-start ${buttonStyle}`}
-                            disabled={isPlaying}
                         >
                             <Music size={18} className="mr-2" />
                             {t("背景音效", "Sound")}
@@ -178,7 +174,6 @@ export function MeditationHeader({
                             size="sm"
                             onClick={onGuidanceClick}
                             className={`w-full justify-start ${buttonStyle}`}
-                            disabled={isPlaying}
                         >
                             <BookOpen size={18} className="mr-2" />
                             {t("引导语", "Guidance")}
