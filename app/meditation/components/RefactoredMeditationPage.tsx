@@ -306,35 +306,24 @@ export default function RefactoredMeditationPage() {
             <Headphones size={16} className="mr-2" />
             <span className="font-semibold">{selectedCourse.name}</span>
           </div>
-          <div className="mt-1 px-2 text-xs opacity-80">
-            {t('来源：潮汐APP', 'Source: Tide APP')} | {selectedCourse.duration}{' '}
-            {t('分钟', 'min')}
-          </div>
         </div>
       )}
 
       {/* 选中引导语显示 */}
-      <div
-        className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
-      >
-        {selectedGuidance && selectedGuidance.id !== 'no-guidance' && (
-          <>
-            <div className="flex flex-wrap items-center justify-center">
-              <Volume2 size={16} className="mr-2" />
-              <span className="font-semibold">
-                {selectedGuidance.id.startsWith('custom-')
-                  ? t('自定义引导语', 'Custom Guidance')
-                  : selectedGuidance.title}
-              </span>
-            </div>
-            <div className="mt-1 px-2 text-xs opacity-80">
-              {t('来源：周周冥想', 'Source: WeeklyZen') +
-                ' | ' +
-                t('不低于13分钟', 'At least 13 minutes')}
-            </div>
-          </>
-        )}
-      </div>
+      {selectedGuidance && selectedGuidance.id !== 'no-guidance' && (
+        <div
+          className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
+        >
+          <div className="flex flex-wrap items-center justify-center">
+            <Volume2 size={16} className="mr-2" />
+            <span className="font-semibold">
+              {selectedGuidance.id.startsWith('custom-')
+                ? t('自定义引导语', 'Custom Guidance')
+                : selectedGuidance.title}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* 冥想核心组件 */}
       <MeditationCore

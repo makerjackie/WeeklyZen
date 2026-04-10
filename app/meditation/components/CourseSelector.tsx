@@ -26,10 +26,6 @@ export function CourseSelector({
         <h3 className={`text-lg font-medium ${isDarkTheme ? 'text-indigo-200' : 'text-blue-800'}`}>
           {t("冥想课程", "Meditation Courses")}
         </h3>
-        
-        <div className={`text-xs ${isDarkTheme ? 'text-indigo-300' : 'text-blue-600'}`}>
-          {t("来源：潮汐APP", "Source: Tide APP")}
-        </div>
       </div>
       
       {/* 课程列表 */}

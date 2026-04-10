@@ -1301,10 +1301,6 @@ export default function MeditationPage() {
             <Headphones size={16} className="mr-2" />
             <span className="font-semibold">{selectedCourse.name}</span>
           </div>
-          <div className="mt-1 px-2 text-xs opacity-80">
-            {t('来源：潮汐APP', 'Source: Tide APP')} | {selectedCourse.duration}{' '}
-            {t('分钟', 'min')}
-          </div>
         </div>
       )}
 
@@ -1321,27 +1317,20 @@ export default function MeditationPage() {
       )}
 
       {/* 选中引导语显示 */}
-      <div
-        className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
-      >
-        {selectedGuidance && selectedGuidance.id !== 'no-guidance' && (
-          <>
-            <div className="flex flex-wrap items-center justify-center">
-              <Volume2 size={16} className="mr-2" />
-              <span className="font-semibold">
-                {selectedGuidance.id.startsWith('custom-')
-                  ? t('自定义引导语', 'Custom Guidance')
-                  : selectedGuidance.title}
-              </span>
-            </div>
-            <div className="mt-1 px-2 text-xs opacity-80">
-              {t('来源：周周冥想', 'Source: WeeklyZen') +
-                ' | ' +
-                t('不低于5分钟', 'At least 13 minutes')}
-            </div>
-          </>
-        )}
-      </div>
+      {selectedGuidance && selectedGuidance.id !== 'no-guidance' && (
+        <div
+          className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
+        >
+          <div className="flex flex-wrap items-center justify-center">
+            <Volume2 size={16} className="mr-2" />
+            <span className="font-semibold">
+              {selectedGuidance.id.startsWith('custom-')
+                ? t('自定义引导语', 'Custom Guidance')
+                : selectedGuidance.title}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* 主要内容 - 响应式布局优化 */}
       <div className="relative flex flex-1 flex-col items-center justify-center">
@@ -1413,10 +1402,7 @@ export default function MeditationPage() {
       </Dialog>
 
       {/* 引导语选择对话框 - 优化移动端显示 */}
-      <Dialog
-        open={showGuidanceDialog}
-        onOpenChange={setShowGuidanceDialog}
-      >
+      <Dialog open={showGuidanceDialog} onOpenChange={setShowGuidanceDialog}>
         <DialogContent
           className={`${isDarkTheme ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'} mx-auto w-[90vw] max-w-md`}
         >
