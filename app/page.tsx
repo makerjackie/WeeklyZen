@@ -376,14 +376,14 @@ export default function IndexPage() {
       </section>
 
       {/* 引言部分 */}
-      <section className="relative overflow-hidden py-20 sm:py-28">
+      <section className="relative isolate overflow-hidden py-20 sm:py-28">
         {/* 背景效果 */}
         <div className="absolute inset-0 -z-10">
           <div
             className={`absolute inset-0 ${
               isDarkTheme
                 ? 'bg-gradient-to-b from-slate-950/80 via-indigo-950/65 to-slate-950/80'
-                : 'bg-gradient-to-b from-slate-900/95 via-indigo-950/85 to-slate-900/95'
+                : 'bg-gradient-to-b from-slate-900/95 via-indigo-950/90 to-slate-900/95'
             }`}
           />
           <motion.div
@@ -413,7 +413,7 @@ export default function IndexPage() {
             className={`rounded-[2rem] border p-10 shadow-2xl backdrop-blur-xl sm:p-12 ${
               isDarkTheme
                 ? 'border-white/10 bg-slate-950/60 shadow-slate-950/30'
-                : 'bg-slate-900/88 border-slate-700/40 shadow-slate-900/25'
+                : 'border-slate-700/40 bg-slate-900/90 shadow-slate-900/25'
             }`}
           >
             <blockquote className="mx-auto max-w-3xl text-xl font-light italic leading-relaxed text-white sm:text-2xl md:text-3xl">
