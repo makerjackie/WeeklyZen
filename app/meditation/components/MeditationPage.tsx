@@ -1258,6 +1258,10 @@ export default function MeditationPage() {
     }
   }, [customAudioUrl, guidanceAudio, selectedGuidance, isMuted, volume])
 
+  const selectedSoundLabel = selectedSound
+    ? t(selectedSound.name, selectedSound.name)
+    : t('已关闭', 'Off')
+
   return (
     <div className={`min-h-screen ${bgGradient} ${textColor} flex flex-col`}>
       <MeditationHeader
@@ -1267,6 +1271,7 @@ export default function MeditationPage() {
         volume={volume}
         showVolumeSlider={showVolumeSlider}
         selectedDuration={selectedDuration}
+        selectedSoundLabel={selectedSoundLabel}
         showDurationMenu={showDurationMenu}
         durationOptions={durationOptions}
         buttonStyle={
@@ -1304,7 +1309,7 @@ export default function MeditationPage() {
       )}
 
       {/* 选中背景音效显示 */}
-      {selectedSound && (
+      {selectedSound && !selectedSound.isDefault && (
         <div
           className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
         >

@@ -28,6 +28,7 @@ interface MeditationHeaderProps {
     volume: number;
     showVolumeSlider: boolean;
     selectedDuration: number;
+    selectedSoundLabel?: string | null;
     showDurationMenu: boolean;
     durationOptions: Array<{ value: number; label: string; isTest?: boolean }>;
     buttonStyle: string;
@@ -51,6 +52,7 @@ export function MeditationHeader({
     volume,
     showVolumeSlider,
     selectedDuration,
+    selectedSoundLabel,
     showDurationMenu,
     durationOptions,
     buttonStyle,
@@ -94,7 +96,14 @@ export function MeditationHeader({
                     className={`rounded-full ${buttonStyle}`}
                 >
                     <Music size={16} className="md:mr-1" />
-                    <span className="hidden md:inline">{t("背景音效", "Sound")}</span>
+                    <span className="hidden md:inline">
+                        {t("背景音效", "Sound")}
+                        {selectedSoundLabel && (
+                            <span className="ml-1 text-xs opacity-70">
+                                · {selectedSoundLabel}
+                            </span>
+                        )}
+                    </span>
                 </Button>
 
                 <Button
@@ -172,7 +181,14 @@ export function MeditationHeader({
                             className={`w-full justify-start ${buttonStyle}`}
                         >
                             <Music size={18} className="mr-2" />
-                            {t("背景音效", "Sound")}
+                            <span>
+                                {t("背景音效", "Sound")}
+                                {selectedSoundLabel && (
+                                    <span className="ml-1 text-xs opacity-70">
+                                        · {selectedSoundLabel}
+                                    </span>
+                                )}
+                            </span>
                         </Button>
 
                         <Button

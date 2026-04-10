@@ -261,6 +261,10 @@ export default function RefactoredMeditationPage() {
     }
   }
 
+  const selectedSoundLabel = selectedSound
+    ? t(selectedSound.name, selectedSound.name)
+    : t('已关闭', 'Off')
+
   return (
     <div className={`min-h-screen ${bgGradient} ${textColor} flex flex-col`}>
       <MeditationHeader
@@ -270,6 +274,7 @@ export default function RefactoredMeditationPage() {
         volume={audio.volume}
         showVolumeSlider={showVolumeSlider}
         selectedDuration={selectedDuration}
+        selectedSoundLabel={selectedSoundLabel}
         showDurationMenu={showDurationMenu}
         durationOptions={durationOptions}
         buttonStyle={
