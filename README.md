@@ -218,11 +218,11 @@ WeeklyZen/
 
 ## 版权
 
-本项目内容使用 CC BY-NC-SA 4.0 许可协议。
+本项目采用 MIT License 开源。
 
 ---
 
-2025 © WeeklyZen | 周周冥想
+@ 2026 01mvp
 
 ## 我们是谁
 

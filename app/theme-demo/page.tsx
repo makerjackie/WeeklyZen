@@ -315,7 +315,7 @@ export default function ThemeDemo() {
             </div>
             
             <div className={themeStyles.secondaryText}>
-              <p>© 2025 WeeklyZen</p>
+              <p>@ 2026 01mvp</p>
             </div>
           </div>
         </div>

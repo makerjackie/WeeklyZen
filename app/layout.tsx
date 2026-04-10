@@ -1,10 +1,10 @@
 import '@/styles/globals.css'
 import { Metadata, Viewport } from 'next'
 
+import { LayoutShell } from '@/components/layout-shell'
 import { siteConfig } from '@/config/site'
 import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
-import { SiteHeader } from '@/components/site-header'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 import { AppThemeProvider } from '@/contexts/theme-context'
@@ -12,7 +12,6 @@ import { LanguageProvider } from '@/contexts/language-context'
 import { UserProvider } from '@/contexts/user-context'
 import { MenuProvider } from '@/contexts/menu-context'
 import { Toaster } from 'sonner'
-import { MobileNav } from '@/components/mobile-nav'
 
 export const viewport: Viewport = {
   themeColor: [
@@ -60,13 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <AppThemeProvider>
                 <UserProvider>
                   <MenuProvider>
-                    <div className="relative flex min-h-screen flex-col">
-                      <SiteHeader />
-                      <div className="has-mobile-nav flex-1 pt-16">
-                        {children}
-                      </div>
-                      <MobileNav />
-                    </div>
+                    <LayoutShell>{children}</LayoutShell>
                     <TailwindIndicator />
                     <Toaster />
                   </MenuProvider>
