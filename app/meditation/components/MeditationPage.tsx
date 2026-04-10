@@ -1312,13 +1312,6 @@ export default function MeditationPage() {
             <Music size={16} className="mr-2" />
             <span className="font-semibold">{selectedSound.name}</span>
           </div>
-          <div className="mt-1 px-2 text-xs opacity-80">
-            {(selectedSound.isDefault
-              ? t('默认背景音效', 'Default background sound')
-              : t('背景音效', 'Background sound')) +
-              ' | ' +
-              t('来源：周周冥想', 'Source: WeeklyZen')}
-          </div>
         </div>
       )}
 
