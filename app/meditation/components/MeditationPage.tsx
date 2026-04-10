@@ -168,6 +168,9 @@ export default function MeditationPage() {
   // 检测是否是移动设备
   const [isMobile, setIsMobile] = useState(false)
 
+  const guidanceAudioCleanupRef = useRef<HTMLAudioElement | null>(null)
+  const courseAudioCleanupRef = useRef<HTMLAudioElement | null>(null)
+
   // 加载冥想次数
   useEffect(() => {
     // 从localStorage获取冥想次数
@@ -194,6 +197,64 @@ export default function MeditationPage() {
       window.removeEventListener('resize', checkIsMobile)
     }
   }, [])
+
+  useEffect(() => {
+    guidanceAudioCleanupRef.current = guidanceAudio
+  }, [guidanceAudio])
+
+  useEffect(() => {
+    courseAudioCleanupRef.current = courseAudio
+  }, [courseAudio])
+
+  const stopAudioElement = useCallback((audio: HTMLAudioElement | null) => {
+    if (!audio) {
+      return
+    }
+
+    audio.pause()
+    audio.onended = null
+    audio.oncanplaythrough = null
+    audio.onerror = null
+    audio.onloadeddata = null
+
+    try {
+      audio.currentTime = 0
+    } catch (error) {
+      console.error('[调试] 重置音频播放位置失败:', error)
+    }
+
+    audio.src = ''
+    audio.load()
+  }, [])
+
+  const stopAllPlayback = useCallback(() => {
+    console.log('[调试] 停止并清理所有音频资源')
+    hasPlayedCustomAudioRef.current = false
+    setIsPlaying(false)
+    setIsPlayingEndSound(false)
+    setShowGuidanceTextDialog(false)
+
+    audioManager.current.stopAllSounds()
+    stopAudioElement(audioRef.current)
+    stopAudioElement(endSoundRef.current)
+    stopAudioElement(guidanceAudioCleanupRef.current)
+    stopAudioElement(courseAudioCleanupRef.current)
+  }, [stopAudioElement])
+
+  useEffect(() => {
+    const audioManagerInstance = audioManager.current
+    const backgroundAudioElement = audioRef.current
+    const endSoundAudioElement = endSoundRef.current
+
+    return () => {
+      console.log('[调试] 页面卸载，清理冥想音频')
+      audioManagerInstance.stopAllSounds()
+      stopAudioElement(backgroundAudioElement)
+      stopAudioElement(endSoundAudioElement)
+      stopAudioElement(guidanceAudioCleanupRef.current)
+      stopAudioElement(courseAudioCleanupRef.current)
+    }
+  }, [stopAudioElement])
 
   // 修改倒计时useEffect，优化检测逻辑
   useEffect(() => {
@@ -1053,6 +1114,11 @@ export default function MeditationPage() {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
+  const handleBack = useCallback(() => {
+    stopAllPlayback()
+    router.push('/')
+  }, [router, stopAllPlayback])
+
   // 背景色渐变
   const bgGradient = isDarkTheme
     ? 'bg-gradient-to-b from-slate-950 via-blue-950 to-indigo-950'
@@ -1208,7 +1274,7 @@ export default function MeditationPage() {
             ? 'border-slate-700 hover:bg-slate-800'
             : 'border-slate-200 hover:bg-slate-100'
         }
-        onBack={() => router.push('/')}
+        onBack={handleBack}
         onSoundClick={() => setShowSoundDialog(true)}
         onGuidanceClick={handleShowGuidanceDialog}
         onThemeToggle={toggleTheme}
@@ -1233,6 +1299,25 @@ export default function MeditationPage() {
           <div className="mt-1 px-2 text-xs opacity-80">
             {t('来源：潮汐APP', 'Source: Tide APP')} | {selectedCourse.duration}{' '}
             {t('分钟', 'min')}
+          </div>
+        </div>
+      )}
+
+      {/* 选中背景音效显示 */}
+      {selectedSound && (
+        <div
+          className={`px-4 py-2 text-center ${isDarkTheme ? 'bg-indigo-900/30' : 'bg-blue-100'}`}
+        >
+          <div className="flex flex-wrap items-center justify-center">
+            <Music size={16} className="mr-2" />
+            <span className="font-semibold">{selectedSound.name}</span>
+          </div>
+          <div className="mt-1 px-2 text-xs opacity-80">
+            {(selectedSound.isDefault
+              ? t('默认背景音效', 'Default background sound')
+              : t('背景音效', 'Background sound')) +
+              ' | ' +
+              t('来源：周周冥想', 'Source: WeeklyZen')}
           </div>
         </div>
       )}

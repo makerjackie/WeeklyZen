@@ -73,7 +73,13 @@ export function MeditationHeader({
             <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => router.push('/')}
+                onClick={() => {
+                    if (onBack) {
+                        onBack();
+                        return;
+                    }
+                    router.push('/');
+                }}
                 className="rounded-full"
             >
                 <ArrowLeft size={20} />
