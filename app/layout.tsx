@@ -26,14 +26,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://zen.01mvp.com'),
   title: {
-    default: siteConfig.name,
+    default: siteConfig.title,
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
   icons: {
-    icon: '/WZ.ico',
-    shortcut: '/WZ.ico',
-    apple: '/WZ.ico',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 }
 
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang="zh-CN" suppressHydrationWarning>
         <head>
-          <link rel="icon" href="/WZ.ico?v=2" />
+          <link rel="icon" href="/favicon.ico?v=2" />
         </head>
         <body
           className={cn(

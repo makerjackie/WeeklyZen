@@ -22,7 +22,7 @@ export function MainNav({ items }: MainNavProps) {
     <div className="mr-4 flex items-center space-x-6">
       <Link href="/" className="flex items-center space-x-2">
         {/* <span className="font-semibold text-lg transition-colors hover:text-primary">
-          WeeklyZen
+          Zen
         </span> */}
       </Link>
       <nav className="flex items-center space-x-6">

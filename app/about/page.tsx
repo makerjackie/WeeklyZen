@@ -124,8 +124,8 @@ export default function AboutPage() {
                   className={`${isDarkTheme ? 'text-indigo-100/90' : 'text-slate-700'} leading-relaxed`}
                 >
                   {t(
-                    'WeeklyZen 起初只是一个很小的想法：做一个安静、好用、不打扰人的冥想网站，让人们在忙碌的一天里随时停下来，回到呼吸。',
-                    'WeeklyZen started as a very small idea: build a quiet, useful meditation website that lets people pause during a busy day and return to their breath.'
+                    'Zen 起初只是一个很小的想法：做一个安静、好用、不打扰人的冥想网站，让人们在忙碌的一天里随时停下来，回到呼吸。',
+                    'Zen started as a very small idea: build a quiet, useful meditation website that lets people pause during a busy day and return to their breath.'
                   )}
                 </p>
                 <p
@@ -143,23 +143,23 @@ export default function AboutPage() {
               <h2
                 className={`text-2xl font-light ${themeStyles.primaryText} mb-6 border-b pb-2 ${isDarkTheme ? 'border-indigo-800/30' : 'border-blue-200/50'}`}
               >
-                {t('名字的由来', 'Why WeeklyZen')}
+                {t('为什么叫 Zen', 'Why Zen')}
               </h2>
               <div className="space-y-4">
                 <p
                   className={`${isDarkTheme ? 'text-indigo-100/90' : 'text-slate-700'} leading-relaxed`}
                 >
                   {t(
-                    '“周周冥想”想表达的其实很简单：不必给自己太大压力，只要每周留出一两次安静练习，让心慢慢安定下来，就已经很好。',
-                    'The idea behind WeeklyZen is simple: you do not need to pressure yourself into meditating every day. One or two quiet sessions each week can already help your mind settle.'
+                    'Zen 只是一个简单的名字：打开网站，留几分钟，把注意力放回呼吸、身体和当下。',
+                    'Zen is a simple name for a simple practice: open the site, take a few minutes, and return attention to breath, body, and the present moment.'
                   )}
                 </p>
                 <p
                   className={`${isDarkTheme ? 'text-indigo-100/90' : 'text-slate-700'} leading-relaxed`}
                 >
                   {t(
-                    '它更像是一种温和的提醒——忙的时候，也别忘了给自己一点呼吸和停顿。',
-                    'It is a gentle reminder that even in busy weeks, it is worth saving a little space for breathing and pause.'
+                    '它不强调打卡、课程体系或复杂目标，只是帮你更容易开始一次安静练习。',
+                    'It does not center streaks, course systems, or complicated goals. It simply makes a quiet session easier to start.'
                   )}
                 </p>
               </div>

@@ -103,7 +103,7 @@ export default function IndexPage() {
             <div
               className={`text-sm md:text-base ${isDarkTheme ? 'text-indigo-500' : 'text-blue-900'} mb-1 font-medium uppercase tracking-wide`}
             >
-              {t('周周冥想', 'Weekly Zen')}
+              Zen
             </div>
 
             <AnimatePresence mode="wait">
@@ -126,10 +126,7 @@ export default function IndexPage() {
             transition={{ duration: 1.5, delay: 0.5 }}
             className={`text-3xl font-light tracking-tight sm:text-4xl md:text-6xl ${themeStyles.primaryText} mb-6 leading-tight`}
           >
-            {t(
-              '掌控呼吸，掌控生命',
-              'Who controls his breath controls his life'
-            )}
+            {t('简单冥想', 'Simple Meditation')}
           </motion.h1>
 
           <motion.p
@@ -139,8 +136,8 @@ export default function IndexPage() {
             className={`text-sm sm:text-base md:text-lg ${isDarkTheme ? 'text-indigo-100/80' : 'text-slate-700'} mx-auto mb-12 max-w-xl font-light leading-relaxed md:mb-16`}
           >
             {t(
-              '周周冥想，想表达的是：每周留给自己一两次安静练习，让注意力轻轻回到呼吸、身体与当下。',
-              'WeeklyZen is about giving yourself one or two quiet sessions each week, gently returning attention to breath, body, and the present moment.'
+              '留一点时间给呼吸、身体和当下。',
+              'Make a little space for breath, body, and the present moment.'
             )}
           </motion.p>
 
@@ -672,7 +669,7 @@ export default function IndexPage() {
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="mb-6 text-center md:mb-0 md:text-left">
               <div className={`text-lg font-medium ${themeStyles.primaryText}`}>
-                WeeklyZen
+                Zen
               </div>
               <div
                 className={`text-sm ${isDarkTheme ? 'text-indigo-300/70' : 'text-slate-600'}`}

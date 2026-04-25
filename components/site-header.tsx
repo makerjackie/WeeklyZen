@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useAppTheme } from '@/contexts/theme-context'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -32,15 +31,16 @@ export function SiteHeader({ scrolled = false }: SiteHeaderProps) {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* 桌面端导航容器，放在最左侧 */}
         <div className="flex items-center space-x-6">
-          <Link href="/" className="mr-6 flex items-center">
-            <Image
-              src={isDarkTheme ? '/WZRightWhite.svg' : '/WZRight.svg'}
-              alt="WeeklyZen"
-              width={150}
-              height={32}
-              priority
-              className="h-8 w-auto md:h-9"
-            />
+          <Link
+            href="/"
+            className={`mr-6 flex items-baseline gap-2 transition-opacity hover:opacity-80 ${themeStyles.primaryText}`}
+          >
+            <span className="text-xl font-semibold tracking-normal">Zen</span>
+            <span
+              className={`hidden text-sm font-normal md:inline ${isDarkTheme ? 'text-indigo-200/75' : 'text-slate-600'}`}
+            >
+              {t('简单冥想', 'Simple Meditation')}
+            </span>
           </Link>
 
           {/* 桌面端导航项目 */}

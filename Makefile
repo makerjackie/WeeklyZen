@@ -20,5 +20,4 @@ install_pm2:
 	pnpm install pm2 -g
 
 server:
-	pm2 start pnpm --name "weeklyzen" -- run start --port 3013
-
+	pm2 start pnpm --name "zen" -- run start --port 3013

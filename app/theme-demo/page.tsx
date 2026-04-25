@@ -310,7 +310,7 @@ export default function ThemeDemo() {
         <div className="container max-w-screen-xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <div className={`text-lg font-medium ${themeStyles.primaryText}`}>WeeklyZen</div>
+              <div className={`text-lg font-medium ${themeStyles.primaryText}`}>Zen</div>
               <div className={themeStyles.secondaryText}>一个小而安静的冥想网站</div>
             </div>
             
